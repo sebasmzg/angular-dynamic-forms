@@ -1,59 +1,108 @@
-# DynamicFormBuilder
+# Dynamic Reactive Form - Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+This project implements a dynamic reactive form system in Angular, allowing the creation of complex forms based on user-defined configurations.
 
-## Development server
+## Main Features
 
-To start a local development server, run:
+- **Dynamic reactive forms**: Generate forms based on JSON configurations
+- **Field validation**: Support for multiple validation rules
+- **Standalone components**: Modern architecture based on standalone components
+- **Angular Material**: User interface with Material Design components
+- **Customizable**: Easily adaptable to different use cases
+
+## Technologies Used
+
+- Angular (latest version)
+- TypeScript
+- Angular Material
+- Reactive Forms
+- CSS/SCSS
+
+## Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/dynamic-reactive-form.git
+
+# Navigate to the directory
+cd dynamic-reactive-form
+
+# Install dependencies
+npm install
+
+# Install Angular Material (if not already installed)
+npm install @angular/material @angular/cdk @angular/animations
+
+# Start the application
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Component Usage
 
-## Code scaffolding
+The main `DynamicFormComponent` receives configurations to generate forms:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+```typescript
+// In your parent component
+import { Component } from '@angular/core';
 
-```bash
-ng generate component component-name
+@Component({
+  selector: 'app-root',
+  template: `
+    <app-dynamic-form
+      [fields]="formFields"
+      [title]="'User Registration'"
+      (formSubmit)="onSubmit($event)">
+    </app-dynamic-form>
+  `
+})
+export class AppComponent {
+  formFields = [
+    {
+      type: 'text',
+      name: 'name',
+      label: 'Name',
+      required: true,
+      validators: [{type: 'required', message: 'Name is required'}]
+    },
+    {
+      type: 'email',
+      name: 'email',
+      label: 'Email',
+      validators: [
+        {type: 'required', message: 'Email is required'},
+        {type: 'email', message: 'Invalid email format'}
+      ]
+    }
+    // More fields as needed
+  ];
+
+  onSubmit(formData: any) {
+    console.log('Form data:', formData);
+    // Process data
+  }
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Field Configuration Structure
 
-```bash
-ng generate --help
-```
+Each form field is defined by an object with the following properties:
 
-## Building
+- `type`: Field type (text, email, number, select, etc.)
+- `name`: Unique field identifier
+- `label`: Label to display
+- `required`: Indicates if the field is mandatory
+- `validators`: Array of validators with custom messages
+- `options`: Array of options for select, radiobutton, etc.
+- `placeholder`: Placeholder text (optional)
 
-To build the project run:
+## Contributing
 
-```bash
-ng build
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit your changes (`git commit -am 'Add new feature'`)
+4. Push to the branch (`git push origin feature/new-feature`)
+5. Create a new Pull Request
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## License
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the MIT License.
