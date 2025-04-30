@@ -1,0 +1,91 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; 
+  padding: 32px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 20px auto; 
+  background-color: #f8f8f8;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  ng-container {
+    display: block; 
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+  }
+
+  mat-checkbox {
+    margin-bottom: 12px;
+  }
+
+  mat-form-field {
+    margin-bottom: 16px;
+
+    .mat-mdc-form-field-subscript-wrapper {
+      margin-top: 5px;
+    }
+  }
+
+  mat-error {
+    font-size: 0.8em;
+    color: #f44336; 
+    margin-top: 5px;
+    display: block;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    justify-content: flex-end; 
+  }
+
+  button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &[mat-raised-button][color="primary"] {
+      background-color: #3f51b5; 
+      color: white;
+
+      &:hover {
+        background-color: darken(#3f51b5, 10%);
+      }
+    }
+
+    &[mat-raised-button][type="reset"] {
+      background-color: #e0e0e0;
+      color: #333;
+
+      &:hover {
+        background-color: darken(#e0e0e0, 10%);
+      }
+    }
+  }
+}

@@ -1,0 +1,102 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+  <ng-container *ngFor="let field of fields">
+    <ng-container *ngIf="field.type === fieldTypes.Checkbox; else otherFields">
+      <mat-checkbox [formControl]="getFormControl(field.name)">
+        {{ field.label }}
+      </mat-checkbox>
+    </ng-container>
+
+    <ng-template #otherFields>
+      <ng-container [ngSwitch]="field.type">
+        <mat-form-field *ngSwitchCase="fieldTypes.Text" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+            type="text"
+            matInput
+          />
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="fieldTypes.Password" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+            type="password"
+            matInput
+          />
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="fieldTypes.Email" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+            type="email"
+            matInput
+          />
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="fieldTypes.Date" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+            type="date"
+            matInput
+          />
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="fieldTypes.Number" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+            type="number"
+            matInput
+          />
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="fieldTypes.Textarea" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <textarea
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+            matInput
+            rows="4"
+          ></textarea>
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="fieldTypes.Select" class="full-width" appearance="outline">
+          <mat-label>{{ field.label }}</mat-label>
+          <mat-select
+            [formControl]="getFormControl(field.name)"
+            [placeholder]="field.placeholder || ''"
+          >
+            <mat-option *ngFor="let opt of field.options" [value]="opt.value">
+              {{ opt.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- radio -->
+        <div *ngSwitchCase="fieldTypes.Radio" class="radio-group">
+          <label>{{ field.label }}</label>
+          <mat-radio-group [formControl]="getFormControl(field.name)">
+            <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </ng-container>
+
+      <mat-error *ngIf="getFormControl(field.name)?.invalid && getFormControl(field.name)?.touched">
+        {{ getErrorMessage(field.name) }}
+      </mat-error>
+    </ng-template>
+  </ng-container>
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+  <button mat-raised-button type="reset">Reset</button>
+</form>
